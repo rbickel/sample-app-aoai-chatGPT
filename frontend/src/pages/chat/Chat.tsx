@@ -690,7 +690,7 @@ const Chat = () => {
                                         <div className={styles.chatMessageGpt}>
                                             <Answer
                                                 answer={{
-                                                    answer: "Activation FTL... Saut hyperespace dans 3... 2... 1...",
+                                                    answer: "Recherche en cours...",
                                                     citations: []
                                                 }}
                                                 onCitationClicked={() => null}

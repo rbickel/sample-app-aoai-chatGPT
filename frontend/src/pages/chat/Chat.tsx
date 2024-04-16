@@ -791,12 +791,13 @@ const Chat = () => {
                                 <IconButton iconProps={{ iconName: 'Cancel' }} aria-label="Close citations panel" onClick={() => setIsCitationPanelOpen(false)} />
                             </Stack>
                             <h5 className={styles.citationPanelTitle} tabIndex={0} title={activeCitation.url ? activeCitation.url : activeCitation.title ?? ""} onClick={() => onViewSource(activeCitation)}>{activeCitation.title}</h5>
-                            {activeCitation.url?.includes('.png') && (
-                                <img  src={activeCitation.url} className={styles.citationPanelImage} width="100%"/>
-                            )}
-                            {activeCitation.url?.includes('.pdf') && (
+                            {activeCitation.url && activeCitation.url?.includes('.pdf') && (
                                 <iframe  src={activeCitation.url} className={styles.citationPanelImage} width="100%" height="850"/>
                             )}
+                            {activeCitation.url && !activeCitation.url?.includes('.pdf') && (
+                                <img  src={activeCitation.url} className={styles.citationPanelImage} width="100%"/>
+                            )}
+                            {activeCitation.url && !activeCitation.url?.includes('.pdf') && (
                             <div tabIndex={0}>
                                 <ReactMarkdown
                                     linkTarget="_blank"
@@ -806,6 +807,7 @@ const Chat = () => {
                                     rehypePlugins={[rehypeRaw]}
                                 />
                             </div>
+                             )}
                         </Stack.Item>
                     )}
                     {(appStateContext?.state.isChatHistoryOpen && appStateContext?.state.isCosmosDBAvailable?.status !== CosmosDBStatus.NotConfigured) && <ChatHistoryPanel />}

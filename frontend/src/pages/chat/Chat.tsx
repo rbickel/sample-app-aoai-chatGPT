@@ -690,7 +690,7 @@ const Chat = () => {
                                         <div className={styles.chatMessageGpt}>
                                             <Answer
                                                 answer={{
-                                                    answer: "Generating answer...",
+                                                    answer: "Recherche de votre réponse...",
                                                     citations: []
                                                 }}
                                                 onCitationClicked={() => null}
@@ -792,7 +792,7 @@ const Chat = () => {
                             </Stack>
                             <h5 className={styles.citationPanelTitle} tabIndex={0} title={activeCitation.url ? activeCitation.url : activeCitation.title ?? ""} onClick={() => onViewSource(activeCitation)}>{activeCitation.title}</h5>
                             {activeCitation.url && activeCitation.url?.includes('.pdf') && (
-                                <iframe  src={activeCitation.url} className={styles.citationPanelImage} width="100%" height="850"/>
+                                <iframe  src={activeCitation.url} className={styles.citationPanelImage} width="100%" height="100%"/>
                             )}
                             {activeCitation.url && !activeCitation.url?.includes('.pdf') && (
                                 <img  src={activeCitation.url} className={styles.citationPanelImage} width="100%"/>

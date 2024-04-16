@@ -135,6 +135,8 @@ AZURE_OPENAI_EMBEDDING_ENDPOINT = os.environ.get("AZURE_OPENAI_EMBEDDING_ENDPOIN
 AZURE_OPENAI_EMBEDDING_KEY = os.environ.get("AZURE_OPENAI_EMBEDDING_KEY")
 AZURE_OPENAI_EMBEDDING_NAME = os.environ.get("AZURE_OPENAI_EMBEDDING_NAME", "")
 
+AZURE_STORAGE_SAS = os.environ.get("AZURE_STORAGE_SAS", "")
+
 # CosmosDB Mongo vcore vector db Settings
 AZURE_COSMOSDB_MONGO_VCORE_CONNECTION_STRING = os.environ.get(
     "AZURE_COSMOSDB_MONGO_VCORE_CONNECTION_STRING"
@@ -874,7 +876,9 @@ async def conversation_internal(request_body):
             return response
         else:
             result = await complete_chat_request(request_body)
-            return jsonify(result)
+            res= str(result).replace("_SAS_TOKEN_PLACEHOLDER_", "?"+AZURE_STORAGE_SAS)
+            res = jsonify(result)
+            return jsonify(res)
 
     except Exception as ex:
         logging.exception(ex)

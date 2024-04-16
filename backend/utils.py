@@ -12,6 +12,9 @@ AZURE_SEARCH_PERMITTED_GROUPS_COLUMN = os.environ.get(
     "AZURE_SEARCH_PERMITTED_GROUPS_COLUMN"
 )
 
+AZURE_STORAGE_SAS = os.environ.get(
+    "AZURE_STORAGE_SAS"
+)
 
 class JSONEncoder(json.JSONEncoder):
     def default(self, o):
@@ -23,7 +26,9 @@ class JSONEncoder(json.JSONEncoder):
 async def format_as_ndjson(r):
     try:
         async for event in r:
-            yield json.dumps(event, cls=JSONEncoder) + "\n"
+            part = json.dumps(event, cls=JSONEncoder)
+            part = part.replace("_SAS_TOKEN_PLACEHOLDER_", "?"+AZURE_STORAGE_SAS)
+            yield part + "\n"
     except Exception as error:
         logging.exception("Exception while generating response stream: %s", error)
         yield json.dumps({"error": str(error)})
